@@ -28,7 +28,11 @@ class test_author_create(TestCase):
         other_user = create_user("OtherUser", "Otheruser122")
         create_author(user=other_user, name="OtherUser")
         create_author(user=self.user, name="MyAuthor")
+        res = self.client.get(AUTHOR_LIST_LINK)
 
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 1)
+        self.assertEqual(res.data[0]["name"], "MyAuthor")
 
 
 
