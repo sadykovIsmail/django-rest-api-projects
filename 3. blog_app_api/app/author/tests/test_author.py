@@ -1,5 +1,5 @@
 from django.test import TestCase
-from models import AuthorModel
+from ..models import AuthorModel
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 User = get_user_model()
 
-AUTHOR_LIST_LINK = reverse("authormobile-list")
+AUTHOR_LIST_LINK = reverse("authormodel-list")
 
 
 def create_user(username, password):
@@ -21,9 +21,10 @@ def create_author(user, name="Example", email="example@example.com"):
 class test_author_create(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user()
+        self.user = create_user(username="MyUser", password="123author123")
         self.client.force_authenticate(user=self.user)
         self.author_list_link = reverse("authormodel-list")
+
     def test_author_login_returns_only_own(self):
         other_user = create_user("OtherUser", "Otheruser122")
         create_author(user=other_user, name="OtherUser")
@@ -33,6 +34,14 @@ class test_author_create(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
         self.assertEqual(res.data[0]["name"], "MyAuthor")
+
+    def test_users_see_own_authors(self):
+        payload = {"name": "New User", "email": "newAuthor@example.com"}
+        res = self.client.post(AUTHOR_LIST_LINK, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        author = AuthorModel.objects.get(id=res.data["id"])
+        self.assertEqual(author.user, self.user)
 
 
 
