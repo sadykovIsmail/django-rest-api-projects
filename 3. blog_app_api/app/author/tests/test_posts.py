@@ -23,8 +23,14 @@ class test_post_create(TestCase):
         self.client = APIClient()
         self.user = create_user(usernane="My user", password="123example")
         self.client.force_authenticate(user=self.user)
-        self.author = create_author(self.user, "My Author", "myauthor@example.com")
+        self.author = create_author(self.user, "Author1", "myauthor@example.com")
         self.post_link = reverse("blogpostmodel-list")
 
-    
-    payload = {}
+    def test_create_post_properly(self):
+        payload = {
+            "title": "from Author 1",
+            "content": "hello",
+            "author": self.author.id,
+        }
+        res = self.client.post(BLOG_LIST_LINK, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
