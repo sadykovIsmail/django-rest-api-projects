@@ -34,4 +34,12 @@ class test_note(TestCase):
         self.category = create_category(self.user, "example_category")
 
 
-    def 
+    def test_notes_create_success(self):
+        payload = {
+            "title": "first note",
+            "content": "hello",
+            "tags": self.tag.id,
+            "category": self.category.id,
+        }
+        res = self.client.post(self.note_endpoint_link, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
