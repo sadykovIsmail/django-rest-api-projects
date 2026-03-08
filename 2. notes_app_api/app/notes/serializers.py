@@ -5,13 +5,13 @@ class CategorySerializer(serializers.ModelSerializer):
     """Category to front end"""
     class Meta:
         model = Category
-        fields = ['id', 'name', 'created_at', 'updated_at']
+        fields = ['id', 'name', 'user' 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at']
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'user']
         read_only_fields = ['id']
 
 class NotesSerializer(serializers.ModelSerializer):

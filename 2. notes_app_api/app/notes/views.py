@@ -11,6 +11,12 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
+    def get_queryset(self):
+        return Category.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 class NotesViewSet(viewsets.ModelViewSet):
     """End points of API"""
     serializer_class = NotesSerializer
@@ -62,3 +68,9 @@ class TagsViewSet(viewsets.ModelViewSet):
     """End point of API"""
     serializer_class = TagSerializer
     queryset = Tag.objects.all()
+
+    def get_queryset(self):
+        return Category.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
