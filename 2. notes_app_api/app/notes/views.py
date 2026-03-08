@@ -70,7 +70,7 @@ class TagsViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
 
     def get_queryset(self):
-        return Category.objects.filter(user=self.request.user)
+        return Tag.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
