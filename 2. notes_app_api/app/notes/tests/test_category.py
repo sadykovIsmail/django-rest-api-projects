@@ -19,3 +19,4 @@ class CategoryTest(TestCase):
         self.client.force_authenticate(user=self.user)
 
     def test_category_creates_successfully(self):
+        pass
