@@ -17,6 +17,9 @@ class CategoryTest(TestCase):
         self.client = APIClient()
         self.user = create_user("User1", "User1pass23")
         self.client.force_authenticate(user=self.user)
+        self.category_endpoint = reverse("category-list")
 
     def test_category_creates_successfully(self):
-        pass
+        payload = {"name": "example"}
+        res = self.client.post(self.category_endpoint, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
