@@ -18,3 +18,7 @@ class AuthTests(TestCase):
     def test_note_requires_login(self):
         res = self.client.get(self.note_endpoint)
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_tag_requires_login(self):
+        res = self.client.get(self.tag_enpoint)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
