@@ -18,5 +18,9 @@ class test_tags(TestCase):
         self.user = create_user("My user", "password123d")
         self.client.force_authenticate(user=self.user)
         self.tags_endnpoint = reverse("tag-list")
-        
+
+    def test_tag_creation(self):
+        payload = {"name": "example"}
+        res = self.client.post(self.tags_endnpoint, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
 

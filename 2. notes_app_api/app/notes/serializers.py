@@ -12,7 +12,7 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ['id', 'name', 'user']
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'user']
 
 class NotesSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(
