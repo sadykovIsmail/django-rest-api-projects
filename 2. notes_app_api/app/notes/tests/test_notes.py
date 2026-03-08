@@ -30,5 +30,8 @@ class test_note(TestCase):
         self.tag_endpoint_link = reverse("tag-list")
         self.category_endpoint_link = reverse("category-list")
         self.note_endpoint_link = reverse("note-list")
+        self.tag = create_tag(self.user, "example")
+        self.category = create_category(self.user, "example_category")
 
-    
+
+    def 
