@@ -6,7 +6,7 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name', 'user', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'created_at']
+        read_only_fields = ['id', 'user', 'created_at']
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
