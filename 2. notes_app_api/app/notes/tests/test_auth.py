@@ -10,3 +10,7 @@ class AuthTests(TestCase):
         self.category_endpoint = reverse("category-list")
         self.note_endpoint = reverse("note-list")
         self.tag_enpoint = reverse("tag-list")
+
+    def test_category_requires_login(self):
+        res = self.client.get(self.category_endpoint)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
